@@ -1,0 +1,39 @@
+TeamMates.eu MoneyMod 1/2
+Your Money:
+
+1. Info
+2. Weapons
+
+3. Health Regeneration [0/10] (0hp/10s) [$50]
+4. Respawn [0/10] (TT: 0/20%) (CT: 0/40%) [$75]
+5. Critical Hit [0/5] (0/5%) [$750]
+
+9. Next page
+0. Back
+
+
+TeamMates.eu MoneyMod 2/2
+
+1. Life Steal [0/5] (+0/100%) [$1000]
+2. Weaker Freeze [0/5] (-0/50%) [$2000]
+3. Longer Boots [0/5] (+0/5s) [$3000]
+4. Longer Invincibility [0/5] (+0/5s) [$4000]
+5. Longer Stealth [0/5] (+0/5s) [$5000]
+
+5. Silent Footsteps [0/1] [$30000]
+6. Instant Flash [0/1] [$100000]
+
+0. Back
+
+
+TeamMates.eu Weapons Menu 1/1
+
+1. Second Flash [0/5] (0/50%) [$400]
+2. Freezenade [0/5] (0/50%) [$600]
+3. HE [0/5] (0/50%) [$800]
+4. FiveSeven [0/5] (0/25%) [$1250]
+5. Deagle [0/5] (0/25%) [$1500]
+
+
+
+// jesli bedziemy dodawac pistolety, trzeba zrobic blokade, ze nie mozna ich wyrzucic, druga, ze one znikaja po zakonczeniu rundy, pamietam, ze byly spore bugi z tym... ktos np. wyrzucal w idealnym momencie zakonczenia rundy i dostawal w nastepnej z full ammo
