@@ -18,13 +18,13 @@ public Action:CRITICALHIT_OnTakeDamage(victim, &attacker, &inflictor, &Float:dam
     if(!Client_IsIngame(attacker) || !g_Abilities[attacker][CRITICALHIT])
         return Plugin_Continue;
 
-    PrintToChat(victim, "victim: %i, attacker: %i, inflictor: %i, damage: %.1f",
-        victim, attacker, inflictor, damage);
+    //PrintToChat(victim, "victim: %i, attacker: %i, inflictor: %i, damage: %.1f",
+        //victim, attacker, inflictor, damage);
 
     int chance = g_Abilities[attacker][CRITICALHIT] * g_AbilitiesInfo[CRITICALHIT][powerPerLevel];
     int rand = GetRandomInt(1, 100);
 
-    if(rand > chance)
+    if(chance > rand)
     {
         damage *= 2.0;
         return Plugin_Changed;
