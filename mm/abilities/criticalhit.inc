@@ -13,9 +13,9 @@ public void CRITICALHIT_init() {
 
 public Action:CRITICALHIT_OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damagetype)
 {
-    //decl String:sWeapon[32];
-    //GetEdictClassname(inflictor, sWeapon, sizeof(sWeapon));
-    if(!Client_IsIngame(attacker) || !g_Abilities[attacker][CRITICALHIT])
+    if(!Client_IsIngame(attacker)
+    || !g_Abilities[attacker][CRITICALHIT]
+    || victim == attacker)
         return Plugin_Continue;
 
     //PrintToChat(victim, "victim: %i, attacker: %i, inflictor: %i, damage: %.1f",
@@ -24,9 +24,10 @@ public Action:CRITICALHIT_OnTakeDamage(victim, &attacker, &inflictor, &Float:dam
     int chance = g_Abilities[attacker][CRITICALHIT] * g_AbilitiesInfo[CRITICALHIT][powerPerLevel];
     int rand = GetRandomInt(1, 100);
 
-    if(chance > rand)
+    if(chance >= rand)
     {
         damage *= 2.0;
+        PrintToChat(attacker, "%s\x03 Critical Strike!", CHAT_PREFIX);
         return Plugin_Changed;
     }
 
