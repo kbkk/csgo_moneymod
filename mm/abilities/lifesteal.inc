@@ -12,14 +12,16 @@ public void LIFESTEAL_init() {
 
 public Action:LIFESTEAL_OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damagetype)
 {
-    if(!Client_IsIngame(attacker) || !g_Abilities[attacker][LIFESTEAL])
+    if(!Client_IsIngame(attacker)
+    || !g_Abilities[attacker][LIFESTEAL]
+    || victim == attacker)
         return Plugin_Continue;
 
     int maxhp = 100;
-    int add = RoundFloat(damage * (GetClientAbiPower(attacker, LIFESTEAL) / 100));
+    float add = damage * (GetClientAbiPower(attacker, LIFESTEAL) / 100.0);
     int hp = GetClientHealth(attacker);
 
-    SetEntityHealth(attacker, Math_Min(maxhp, hp + add));
+    SetEntityHealth(attacker, Math_Min(maxhp, hp + RoundFloat(add)));
 
     return Plugin_Continue;
 }
