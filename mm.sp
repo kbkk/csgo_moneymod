@@ -27,16 +27,31 @@ enum e_Ability {
 enum e_Abilities {
 	HPREGEN,
 	RESPAWN,
-	CRITICALHIT
+	CRITICALHIT,
+	LIFESTEAL,
+	WEAKERFREEZE,
+	LONGERBOOTS,
+	LONGERINVINCIBILITY,
+	LONGERSTEALTH,
+	SILENTFOOTSTEPS
 };
 
 new g_AbilitiesInfo[e_Abilities][e_Ability];
 
 int g_Abilities[MAXPLAYERS + 1][e_Abilities];
 
+#include "mm/abi_helpers"
+
 #include "mm/abilities/hpregen"
 #include "mm/abilities/respawn"
 #include "mm/abilities/criticalhit"
+#include "mm/abilities/lifesteal"
+#include "mm/abilities/weakerfreeze"
+#include "mm/abilities/longerboots"
+#include "mm/abilities/longerinvincibility"
+#include "mm/abilities/longerstealth"
+#include "mm/abilities/silentfootsteps"
+
 #include "mm/mainmenu"
 
 
@@ -55,6 +70,12 @@ public void OnPluginStart()
 	HPREGEN_init();
 	RESPAWN_init();
 	CRITICALHIT_init();
+	LIFESTEAL_init();
+	WEAKERFREEZE_init();
+	LONGERBOOTS_init();
+	LONGERINVINCIBILITY_init();
+	LONGERSTEALTH_init();
+	SILENTFOOTSTEPS_init();
 
 	RegConsoleCmd("sm_mm", Command_MainMenu);
 	RegConsoleCmd("sm_test", Command_Test);
@@ -78,4 +99,10 @@ public void OnClientPutInServer(client)
 {
 	g_Players[client][Money] += 1000000;
 	SDKHook(client, SDKHook_OnTakeDamage, CRITICALHIT_OnTakeDamage);
+	SDKHook(client, SDKHook_OnTakeDamage, LIFESTEAL_OnTakeDamage);
+}
+
+public void OnEntityCreated(ent, const char[] classname)
+{
+	//flashbang_projectile
 }

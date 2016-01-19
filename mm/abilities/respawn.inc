@@ -4,8 +4,8 @@ public void RESPAWN_init() {
     g_AbilitiesInfo[RESPAWN][maxLevel] = 10;
     g_AbilitiesInfo[RESPAWN][initialCost] = 75;
     g_AbilitiesInfo[RESPAWN][powerPerLevel] = 2;
-    //Format(g_AbilitiesInfo[HPREGEN][prefix], 4, "");
-    //Format(g_AbilitiesInfo[HPREGEN][firstUnit], 4, "");
+    //Format(g_AbilitiesInfo[RESPAWN][prefix], 4, "");
+    //Format(g_AbilitiesInfo[RESPAWN][firstUnit], 4, "");
     Format(g_AbilitiesInfo[RESPAWN][secondUnit], 4, "%%");
 
     HookEvent("player_death", RESPAWN_EventPlayerDeath, EventHookMode_Post);
