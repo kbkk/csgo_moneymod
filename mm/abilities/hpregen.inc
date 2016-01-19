@@ -9,7 +9,7 @@ public void HPREGEN_init() {
     Format(g_AbilitiesInfo[HPREGEN][firstUnit], 4, "hp");
     Format(g_AbilitiesInfo[HPREGEN][secondUnit], 4, "s");
 
-    HookEvent("player_spawned", HPREGEN_EventPlayerSpawned, EventHookMode_Post);
+    HookEvent("player_spawn", HPREGEN_EventPlayerSpawned, EventHookMode_Post);
 }
 
 public Action HPREGEN_EventPlayerSpawned(Event event, const char[] name, bool dontBroadcast)
@@ -17,11 +17,13 @@ public Action HPREGEN_EventPlayerSpawned(Event event, const char[] name, bool do
     int client = event.GetInt("userid");
 
     ClearTimer(HPREGEN_timers[client]);
-    HPREGEN_timers[client] = CreateTimer(5.0, HPREGEN_regen, client, TIMER_REPEAT);
+    HPREGEN_timers[client] = CreateTimer(10.0, HPREGEN_regen, client, TIMER_REPEAT);
 }
 
-public Action HPREGEN_regen(Handle timer, any client)
+public Action HPREGEN_regen(Handle timer, any userid)
 {
+    int client = GetClientOfUserId(userid);
+
     if(!IsClientInGame(client) || !IsPlayerAlive(client))
         return Plugin_Stop;
 
