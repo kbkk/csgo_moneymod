@@ -6,7 +6,7 @@ public void RESPAWN_init() {
     g_AbilitiesInfo[RESPAWN][powerPerLevel] = 2;
     //Format(g_AbilitiesInfo[HPREGEN][prefix], 4, "");
     //Format(g_AbilitiesInfo[HPREGEN][firstUnit], 4, "");
-    Format(g_AbilitiesInfo[HPREGEN][secondUnit], 4, "%%");
+    Format(g_AbilitiesInfo[RESPAWN][secondUnit], 4, "%%");
 
     HookEvent("player_death", RESPAWN_EventPlayerDeath, EventHookMode_Post);
 }
@@ -17,8 +17,10 @@ public Action RESPAWN_EventPlayerDeath(Event event, const char[] name, bool dont
     CreateTimer(1.0, RESPAWN_RespawnPlayer, client);
 }
 
-public Action RESPAWN_RespawnPlayer(Handle timer, any client)
+public Action RESPAWN_RespawnPlayer(Handle timer, any userid)
 {
+    int client = GetClientOfUserId(userid);
+
     if(!IsClientInGame(client) || IsPlayerAlive(client))
         return Plugin_Stop;
 
