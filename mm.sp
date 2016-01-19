@@ -1,11 +1,18 @@
 #include <sourcemod>
 #include <sdktools>
+#include <sdkhooks>
 #include <cstrike>
 #include <smlib>
 #include "mm/stocks"
 
 #define MENU_PREFIX "[Sejtn's MoneyMod]"
-#define CHAT_PREFIX "\x04[Sejtn's MoneyMod]\x03"
+#define CHAT_PREFIX "\x06[Sejtn's MM]\x01"
+
+enum e_Player {
+	Money
+}
+
+new g_Players[MAXPLAYERS + 1][e_Player];
 
 enum e_Ability {
 	String:desc[64],
@@ -62,6 +69,13 @@ public Action Command_MainMenu(int client, int args) {
 
 
 public Action Command_Test(int client, int args) {
-
+	g_Players[client][Money] += 1000000;
+	PrintToChat(client, "\x01 1\x02 2\x03 3\x04 4\x05 5\x06 6\x07 7\x08 8");
 	return Plugin_Handled;
+}
+
+public void OnClientPutInServer(client)
+{
+	g_Players[client][Money] += 1000000;
+	SDKHook(client, SDKHook_OnTakeDamage, CRITICALHIT_OnTakeDamage);
 }
