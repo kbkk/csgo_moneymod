@@ -29,11 +29,14 @@ public void ShowMainMenu(int client)
 				INFO[desc], g_Abilities[client][i], INFO[maxLevel],
 				INFO[prefix], ABI * INFO[powerPerLevel], INFO[firstUnit],
 				INFO[maxLevel] * INFO[powerPerLevel], INFO[secondUnit],
-				INFO[initialCost] * (ABI + 1));
+				INFO[initialCost] << (ABI));
 
 
 		menu.AddItem(itemname, buffer, maxlvl ? ITEMDRAW_DISABLED : ITEMDRAW_DEFAULT);
 	}
+
+	#undef INFO
+	#undef ABI
 
 	menu.Display(client, MENU_TIME_FOREVER);
 }
@@ -54,14 +57,20 @@ public int HandleMainMenu(Menu menu, MenuAction action, int client, int param2) 
 			int abi = StringToInt(info);
 			BuyAbility(client, abi);
 		}
+		else if(StrEqual(info, "weapons")) {
+			ShowWeaponsMenu(client);
+			return;
+		}
 		//redisplay menu
 		ShowMainMenu(client);
 	}
+
+	return;
 }
 
 public bool BuyAbility(client, ability)
 {
-	int cost = g_AbilitiesInfo[ability][initialCost] * (g_Abilities[client][ability] + 1);
+	int cost = g_AbilitiesInfo[ability][initialCost] << (g_Abilities[client][ability]);
 
 	if(cost > g_Players[client][Money])
 	{
