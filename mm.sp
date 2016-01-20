@@ -50,6 +50,7 @@ new g_WeaponsInfo[e_Weapons][e_Ability];
 int g_Weapons[MAXPLAYERS + 1][e_Weapons];
 
 #include "mm/abi_helpers"
+#include "mm/wep_helpers"
 
 #include "mm/abilities/hpregen"
 #include "mm/abilities/respawn"
