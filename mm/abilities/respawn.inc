@@ -24,14 +24,14 @@ public Action RESPAWN_RespawnPlayer(Handle timer, any userid)
     if(!IsClientInGame(client) || IsPlayerAlive(client))
         return Plugin_Stop;
 
-    if(GameRules_GetRoundState() == RoundState_RoundRunning)
+    /*if(GameRules_GetRoundState() == RoundState_RoundRunning)
     {
         char name[65];
         GetClientName(client, name, sizeof(name));
 
         CS_RespawnPlayer(client);
         PrintToChatAll("%s Player\x07 %s\x03 has been respawned!", CHAT_PREFIX, name);
-    }
+    }*/
 
     return Plugin_Stop;
 }

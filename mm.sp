@@ -53,12 +53,16 @@ int g_Abilities[MAXPLAYERS + 1][e_Abilities];
 enum e_Weapons {
 	SECONDFLASH,
 	FROSTGRENADE,
-	HEGRENADE
+	HEGRENADE,
+	FIVESEVEN,
+	DEAGLE
 }
 
 new g_WeaponsInfo[e_Weapons][e_Ability];
 
 int g_Weapons[MAXPLAYERS + 1][e_Weapons];
+
+new m_iClip1, m_iClip2, m_iAmmo, m_iPrimaryAmmoType;
 
 #include "mm/abi_helpers"
 #include "mm/wep_helpers"
@@ -76,6 +80,8 @@ int g_Weapons[MAXPLAYERS + 1][e_Weapons];
 #include "mm/weapons/secondflash"
 #include "mm/weapons/frostgrenade"
 #include "mm/weapons/hegrenade"
+#include "mm/weapons/fiveseven"
+#include "mm/weapons/deagle"
 
 #include "mm/mainmenu"
 #include "mm/weaponsmenu"
@@ -105,10 +111,16 @@ public void OnPluginStart()
 	SECONDFLASH_init();
 	FROSTGRENADE_init();
 	HEGRENADE_init();
+	FIVESEVEN_init();
+	DEAGLE_init();
+
+	m_iClip1 = FindSendPropOffsEx("CBaseCombatWeapon", "m_iClip1");
+	m_iClip2 = FindSendPropOffsEx("CBaseCombatWeapon", "m_iClip2");
+	m_iAmmo = FindSendPropOffsEx("CBasePlayer", "m_iAmmo");
+	m_iPrimaryAmmoType = FindSendPropOffsEx("CBaseCombatWeapon", "m_iPrimaryAmmoType");
 
 	RegConsoleCmd("sm_mm", Command_MainMenu);
 	RegConsoleCmd("sm_test", Command_Test);
-
 }
 
 public Action Command_MainMenu(int client, int args) {
@@ -126,9 +138,15 @@ public Action Command_Test(int client, int args) {
 
 public void OnClientPutInServer(client)
 {
-	g_Players[client][Money] += 1000000;
 	SDKHook(client, SDKHook_OnTakeDamage, CRITICALHIT_OnTakeDamage);
 	SDKHook(client, SDKHook_OnTakeDamage, LIFESTEAL_OnTakeDamage);
+	SDKHook(client, SDKHook_WeaponDrop, WeaponDrop)
+}
+
+public Action WeaponDrop(client, weapon)
+{
+	AcceptEntityInput(weapon, "Kill");
+	return Plugin_Continue;
 }
 
 public void OnEntityCreated(ent, const char[] classname)
