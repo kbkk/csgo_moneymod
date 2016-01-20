@@ -1,3 +1,12 @@
+/*
+	HnS MoneyMod by Sejtn
+
+	Notes:
+	- giving grenades works really simple and if the player carries
+	  too many of them they might just fall on the ground instead
+	  useful cvars: ammo_grenade_limit_flashbang and similar
+*/
+
 #include <sourcemod>
 #include <sdktools>
 #include <sdkhooks>
@@ -42,7 +51,9 @@ new g_AbilitiesInfo[e_Abilities][e_Ability];
 int g_Abilities[MAXPLAYERS + 1][e_Abilities];
 
 enum e_Weapons {
-	SECONDFLASH
+	SECONDFLASH,
+	FROSTGRENADE,
+	HEGRENADE
 }
 
 new g_WeaponsInfo[e_Weapons][e_Ability];
@@ -63,6 +74,8 @@ int g_Weapons[MAXPLAYERS + 1][e_Weapons];
 #include "mm/abilities/silentfootsteps"
 
 #include "mm/weapons/secondflash"
+#include "mm/weapons/frostgrenade"
+#include "mm/weapons/hegrenade"
 
 #include "mm/mainmenu"
 #include "mm/weaponsmenu"
@@ -90,6 +103,8 @@ public void OnPluginStart()
 	SILENTFOOTSTEPS_init();
 
 	SECONDFLASH_init();
+	FROSTGRENADE_init();
+	HEGRENADE_init();
 
 	RegConsoleCmd("sm_mm", Command_MainMenu);
 	RegConsoleCmd("sm_test", Command_Test);
