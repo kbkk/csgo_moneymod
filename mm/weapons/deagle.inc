@@ -3,6 +3,7 @@ Handle DEAGLE_timerHandle = INVALID_HANDLE;
 public void DEAGLE_init() {
 	//g_WeaponsInfo[DEAGLE][name] = "Health Regeneration";
 	Format(g_WeaponsInfo[DEAGLE][desc], 63, "Deagle");
+	Format(g_WeaponsInfo[DEAGLE][columnname], 63, "deagle");
 	g_WeaponsInfo[DEAGLE][maxLevel] = 5;
 	g_WeaponsInfo[DEAGLE][initialCost] = 1500;
 	g_WeaponsInfo[DEAGLE][powerPerLevel] = 5;

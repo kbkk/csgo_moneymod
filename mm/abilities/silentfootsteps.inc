@@ -1,6 +1,7 @@
 public void SILENTFOOTSTEPS_init() {
     //g_AbilitiesInfo[SILENTFOOTSTEPS][name] = "Health Regeneration";
     Format(g_AbilitiesInfo[SILENTFOOTSTEPS][desc], 63, "Silent Footsteps");
+    Format(g_AbilitiesInfo[SILENTFOOTSTEPS][columnname], 63, "silentfootsteps");
     g_AbilitiesInfo[SILENTFOOTSTEPS][maxLevel] = 1;
     g_AbilitiesInfo[SILENTFOOTSTEPS][initialCost] = 30000;
     g_AbilitiesInfo[SILENTFOOTSTEPS][powerPerLevel] = 1;

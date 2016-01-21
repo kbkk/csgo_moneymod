@@ -3,6 +3,7 @@ Handle FIVESEVEN_timerHandle = INVALID_HANDLE;
 public void FIVESEVEN_init() {
 	//g_WeaponsInfo[FIVESEVEN][name] = "Health Regeneration";
 	Format(g_WeaponsInfo[FIVESEVEN][desc], 63, "FiveSeven");
+	Format(g_WeaponsInfo[FIVESEVEN][columnname], 63, "fiveSeven");
 	g_WeaponsInfo[FIVESEVEN][maxLevel] = 5;
 	g_WeaponsInfo[FIVESEVEN][initialCost] = 1250;
 	g_WeaponsInfo[FIVESEVEN][powerPerLevel] = 5;

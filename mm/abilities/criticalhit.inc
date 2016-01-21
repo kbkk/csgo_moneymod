@@ -1,6 +1,7 @@
 public void CRITICALHIT_init() {
     //g_AbilitiesInfo[CRITICALHIT][name] = "Health Regeneration";
     Format(g_AbilitiesInfo[CRITICALHIT][desc], 63, "Critical Hit");
+    Format(g_AbilitiesInfo[CRITICALHIT][columnname], 63, "criticalhit");
     g_AbilitiesInfo[CRITICALHIT][maxLevel] = 5;
     g_AbilitiesInfo[CRITICALHIT][initialCost] = 750;
     g_AbilitiesInfo[CRITICALHIT][powerPerLevel] = 1;

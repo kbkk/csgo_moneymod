@@ -3,6 +3,7 @@ Handle SECONDFLASH_timerHandle = INVALID_HANDLE;
 public void SECONDFLASH_init() {
 	//g_WeaponsInfo[SECONDFLASH][name] = "Health Regeneration";
 	Format(g_WeaponsInfo[SECONDFLASH][desc], 63, "Second Flashbang");
+	Format(g_WeaponsInfo[SECONDFLASH][columnname], 63, "secondflashbang");
 	g_WeaponsInfo[SECONDFLASH][maxLevel] = 5;
 	g_WeaponsInfo[SECONDFLASH][initialCost] = 400;
 	g_WeaponsInfo[SECONDFLASH][powerPerLevel] = 10;

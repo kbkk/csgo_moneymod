@@ -3,6 +3,7 @@ Handle FROSTGRENADE_timerHandle = INVALID_HANDLE;
 public void FROSTGRENADE_init() {
 	//g_WeaponsInfo[FROSTGRENADE][name] = "Health Regeneration";
 	Format(g_WeaponsInfo[FROSTGRENADE][desc], 63, "Frost Grenade");
+	Format(g_WeaponsInfo[FROSTGRENADE][columnname], 63, "frostgrenade");
 	g_WeaponsInfo[FROSTGRENADE][maxLevel] = 5;
 	g_WeaponsInfo[FROSTGRENADE][initialCost] = 600;
 	g_WeaponsInfo[FROSTGRENADE][powerPerLevel] = 10;

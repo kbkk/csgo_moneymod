@@ -2,6 +2,7 @@ Handle HPREGEN_timers[MAXPLAYERS + 1] = {INVALID_HANDLE, ...};
 
 public void HPREGEN_init() {
     Format(g_AbilitiesInfo[HPREGEN][desc], 63, "Health Regeneration");
+    Format(g_AbilitiesInfo[HPREGEN][columnname], 63, "hpregen");
     g_AbilitiesInfo[HPREGEN][maxLevel] = 10;
     g_AbilitiesInfo[HPREGEN][initialCost] = 50;
     g_AbilitiesInfo[HPREGEN][powerPerLevel] = 1;

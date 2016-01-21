@@ -1,5 +1,6 @@
 public void LIFESTEAL_init() {
     Format(g_AbilitiesInfo[LIFESTEAL][desc], 63, "Life Steal");
+    Format(g_AbilitiesInfo[LIFESTEAL][columnname], 63, "lifesteal");
     g_AbilitiesInfo[LIFESTEAL][maxLevel] = 5;
     g_AbilitiesInfo[LIFESTEAL][initialCost] = 1000;
     g_AbilitiesInfo[LIFESTEAL][powerPerLevel] = 20;
