@@ -204,7 +204,9 @@ public void OnClientDisconnect(client)
 
 public Action WeaponDrop(client, weapon)
 {
-	AcceptEntityInput(weapon, "Kill");
+	if(weapon != -1)
+		AcceptEntityInput(weapon, "Kill");
+		
 	return Plugin_Continue;
 }
 
