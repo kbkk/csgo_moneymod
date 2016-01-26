@@ -7,7 +7,7 @@
 	  useful cvars: ammo_grenade_limit_flashbang and similar
 
 	- database: sqlite, SM creates a db file if there isn't one.
-      on startup you can check for the version and modify the db structure
+	  on startup you can check for the version and modify the db structure
 */
 
 #include <sourcemod>
@@ -15,6 +15,7 @@
 #include <sdkhooks>
 #include <cstrike>
 #include <smlib>
+#include "mm.inc"
 #include "mm/stocks"
 
 #define MENU_PREFIX "[Sejtn's MoneyMod]"
@@ -93,6 +94,8 @@ new m_iClip1, m_iClip2, m_iAmmo, m_iPrimaryAmmoType;
 #include "mm/mainmenu"
 #include "mm/weaponsmenu"
 
+#include "mm/natives"
+
 
 public Plugin myinfo =
 {
@@ -164,6 +167,16 @@ public void OnPluginStart()
 	RegConsoleCmd("sm_test", Command_Test);
 }
 
+public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
+{
+	CreateNative("mm_GetBootsTime", Native_GetBootsTime);
+	CreateNative("mm_GetInvincibilityTime", Native_GetInvincibilityTime);
+	CreateNative("mm_GetStealthTime", Native_GetStealthTime);
+	CreateNative("mm_GetWeakerFreezePercent", Native_GetWeakerFreezePercent);
+
+	return APLRes_Success;
+}
+
 public Action Command_MainMenu(int client, int args) {
 	ShowMainMenu(client);
 
@@ -206,7 +219,7 @@ public Action WeaponDrop(client, weapon)
 {
 	if(weapon != -1)
 		AcceptEntityInput(weapon, "Kill");
-		
+
 	return Plugin_Continue;
 }
 
@@ -302,4 +315,6 @@ public bool SaveData(client)
 		query, g_Players[client][Money], auth);
 
 	SQL_TQuery(g_Database, T_emptyCallback, query);
+
+	return true;
 }
