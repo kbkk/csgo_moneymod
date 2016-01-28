@@ -37,3 +37,15 @@ TeamMates.eu Weapons Menu 1/1
 
 
 // jesli bedziemy dodawac pistolety, trzeba zrobic blokade, ze nie mozna ich wyrzucic, druga, ze one znikaja po zakonczeniu rundy, pamietam, ze byly spore bugi z tym... ktos np. wyrzucal w idealnym momencie zakonczenia rundy i dostawal w nastepnej z full ammo
+
+Gracze: 0-3 nic
+
+Gracze 4-11
+Kill: $25 (VIP: $30)
+Przezycie w TT: $50 (VIP: $60)
+Moneyblock: 50% (VIP: 75%)
+
+Gracze 12+
+Kill: $50 (VIP: $60)
+Przezycie w TT: $100 (VIP: $120)
+Moneyblock: 100% (VIP: 150%)

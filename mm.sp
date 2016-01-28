@@ -173,6 +173,7 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 	CreateNative("mm_GetInvincibilityTime", Native_GetInvincibilityTime);
 	CreateNative("mm_GetStealthTime", Native_GetStealthTime);
 	CreateNative("mm_GetWeakerFreezePercent", Native_GetWeakerFreezePercent);
+	CreateNative("mm_AddMoney", Native_AddMoney);
 
 	return APLRes_Success;
 }
@@ -185,9 +186,9 @@ public Action Command_MainMenu(int client, int args) {
 
 
 public Action Command_Test(int client, int args) {
-	g_Players[client][Money] += 1000000;
+	//g_Players[client][Money] += 1000000;
 	PrintToChat(client, "\x01 1\x02 2\x03 3\x04 4\x05 5\x06 6\x07 7\x08 8");
-	g_PlayerInitialized[client] = true;
+	//g_PlayerInitialized[client] = true;
 	SaveData(client);
 	return Plugin_Handled;
 }

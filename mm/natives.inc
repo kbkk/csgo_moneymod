@@ -25,3 +25,14 @@ public int Native_GetWeakerFreezePercent(Handle plugin, int numParams)
 
    return GetClientAbiPower(client, WEAKERFREEZE);
 }
+
+public int Native_AddMoney(Handle plugin, int numParams)
+{
+   int client = GetNativeCell(1);
+   int money = GetNativeCell(2);
+
+   g_Players[client][Money] += money;
+
+   SaveData(client);
+   return 1;
+}
