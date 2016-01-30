@@ -2,7 +2,8 @@ public int Native_GetBootsTime(Handle plugin, int numParams)
 {
    int client = GetNativeCell(1);
 
-   return GetClientAbiPower(client, LONGERBOOTS);
+   //return GetClientAbiPower(client, LONGERBOOTS);
+   return 0;
 }
 
 public int Native_GetInvincibilityTime(Handle plugin, int numParams)
@@ -30,9 +31,7 @@ public int Native_AddMoney(Handle plugin, int numParams)
 {
    int client = GetNativeCell(1);
    int money = GetNativeCell(2);
+   float vipMultiplier = view_as<float>(GetNativeCell(3));
 
-   g_Players[client][Money] += money;
-
-   SaveData(client);
-   return 1;
+   return AddPlayerMoney(client, money, vipMultiplier);
 }

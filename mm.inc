@@ -11,4 +11,4 @@ native int mm_GetStealthTime(int client);
 
 native int mm_GetWeakerFreezePercent(int client);
 
-native int mm_AddMoney(int client, int money);
+native int mm_AddMoney(int client, int money, float vipMultiplier = 1.2);

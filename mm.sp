@@ -18,13 +18,18 @@
 #include "mm.inc"
 #include "mm/stocks"
 
+#define KILL_MONEY 50
+#define TT_SURVIVE_MONEY 100
+#define VIP_MULTIPLIER 1.2
+
 #define MENU_PREFIX "[Sejtn's MoneyMod]"
 #define CHAT_PREFIX "\x06[Sejtn's MM]\x01"
 
 Database g_Database;
 
 enum e_Player {
-	Money
+	Money,
+	bool:Vip
 }
 
 bool g_PlayerInitialized[MAXPLAYERS + 1];
@@ -48,10 +53,9 @@ enum e_Abilities {
 	CRITICALHIT,
 	LIFESTEAL,
 	WEAKERFREEZE,
-	LONGERBOOTS,
 	LONGERINVINCIBILITY,
 	LONGERSTEALTH,
-	SILENTFOOTSTEPS
+	INSTANTFLASHBANG
 };
 
 new g_AbilitiesInfo[e_Abilities][e_Ability];
@@ -80,10 +84,11 @@ new m_iClip1, m_iClip2, m_iAmmo, m_iPrimaryAmmoType;
 #include "mm/abilities/criticalhit"
 #include "mm/abilities/lifesteal"
 #include "mm/abilities/weakerfreeze"
-#include "mm/abilities/longerboots"
+//#include "mm/abilities/longerboots"
 #include "mm/abilities/longerinvincibility"
 #include "mm/abilities/longerstealth"
-#include "mm/abilities/silentfootsteps"
+//#include "mm/abilities/silentfootsteps"
+#include "mm/abilities/instantflashbang"
 
 #include "mm/weapons/secondflash"
 #include "mm/weapons/frostgrenade"
@@ -113,10 +118,11 @@ public void OnPluginStart()
 	CRITICALHIT_init();
 	LIFESTEAL_init();
 	WEAKERFREEZE_init();
-	LONGERBOOTS_init();
+	//LONGERBOOTS_init();
 	LONGERINVINCIBILITY_init();
 	LONGERSTEALTH_init();
-	SILENTFOOTSTEPS_init();
+	//SILENTFOOTSTEPS_init();
+	INSTANTFLASHBANG_init();
 
 	SECONDFLASH_init();
 	FROSTGRENADE_init();
@@ -165,6 +171,24 @@ public void OnPluginStart()
 
 	RegConsoleCmd("sm_mm", Command_MainMenu);
 	RegConsoleCmd("sm_test", Command_Test);
+
+	HookEvent("player_death", Event_PlayerDeath);
+	HookEvent("round_end", OnRoundEnd, EventHookMode_Pre);
+}
+
+public void OnRoundEnd(Event hEvent, const char[] name, bool dontBroadcast)
+{
+	for (new client = 1; client <= MaxClients; ++client)
+    {
+		if(!IsClientInGame(client) || !IsPlayerAlive(client))
+			continue;
+
+		if(GetClientTeam(client) == CS_TEAM_T)
+		{
+			int money = AddPlayerMoney(client, TT_SURVIVE_MONEY);
+			PrintToChat(client, "%s\x04 +$%i\x03 for surviving!", CHAT_PREFIX, money);
+		}
+	}
 }
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
@@ -176,6 +200,18 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 	CreateNative("mm_AddMoney", Native_AddMoney);
 
 	return APLRes_Success;
+}
+
+public Action Event_PlayerDeath(Event event, const char[] name, bool dontBroadcast)
+{
+	int victim = GetClientOfUserId(event.GetInt("userid"));
+	int attacker = GetClientOfUserId(event.GetInt("attacker"));
+
+	if(victim == attacker || attacker == 0 || !IsClientInGame(attacker))
+		return;
+
+	int money = AddPlayerMoney(attacker, KILL_MONEY);
+	PrintToChat(attacker, "%s\x04 +$%i\x03 for killing!", CHAT_PREFIX, money);
 }
 
 public Action Command_MainMenu(int client, int args) {
@@ -195,6 +231,8 @@ public Action Command_Test(int client, int args) {
 
 public void OnClientPostAdminCheck(client)
 {
+	g_Players[client][Vip] = view_as<bool>((GetUserFlagBits(client) & ADMFLAG_CUSTOM6));
+
 	SDKHook(client, SDKHook_OnTakeDamage, CRITICALHIT_OnTakeDamage);
 	SDKHook(client, SDKHook_OnTakeDamage, LIFESTEAL_OnTakeDamage);
 	SDKHook(client, SDKHook_WeaponDrop, WeaponDrop);
@@ -208,6 +246,7 @@ public void OnClientDisconnect(client)
 	SaveData(client);
 	g_PlayerInitialized[client] = false;
 	g_Players[client][Money] = 0;
+	g_Players[client][Vip] = false;
 
 	for(int i = 0; i < view_as<int>(e_Abilities); i++)
 		g_Abilities[client][i] = 0;
@@ -233,7 +272,7 @@ public T_loadPlayerCallback(Handle owner, Handle hndl, const char[] error, any u
 {
 	int client = GetClientOfUserId(userid);
 
-	if(client == 0 )
+	if(client == 0)
 		return;
 
 	if(!SQL_FetchRow(hndl))
@@ -243,12 +282,14 @@ public T_loadPlayerCallback(Handle owner, Handle hndl, const char[] error, any u
 
 	for(int i = 0; i < view_as<int>(e_Abilities); i++)
 	{
+		SQL_FieldNameToNum(hndl, g_AbilitiesInfo[i][columnname], field);
 		g_Abilities[client][i] = SQL_FetchInt(hndl, field);
 		field++;
 	}
 
 	for(int i = 0; i < view_as<int>(e_Weapons); i++)
 	{
+		SQL_FieldNameToNum(hndl, g_WeaponsInfo[i][columnname], field);
 		g_Weapons[client][i] = SQL_FetchInt(hndl, field);
 		field++;
 	}
@@ -262,7 +303,7 @@ public T_initPlayerCallback(Handle owner, Handle hndl, const char[] error, any u
 {
 	int client = GetClientOfUserId(userid);
 
-	if(client == 0 )
+	if(client == 0)
 		return;
 
 	char auth[64], query[256];
@@ -318,4 +359,23 @@ public bool SaveData(client)
 	SQL_TQuery(g_Database, T_emptyCallback, query);
 
 	return true;
+}
+
+int AddPlayerMoney(int client, int money, float vipMultiplier = 1.2)
+{
+	int ccount = GetClientCount();
+	//TODO tell the user why he didn't get any money
+	if(ccount <= 3)
+		return 0;
+
+	if(ccount <= 11)
+		money /= 2;
+
+	if(g_Players[client][Vip])
+		money = RoundFloat(money * vipMultiplier);
+
+
+	g_Players[client][Money] += money;
+	SaveData(client);
+	return money;
 }
