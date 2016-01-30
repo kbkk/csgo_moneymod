@@ -26,7 +26,7 @@ public Action DEAGLE_timerCallback(Handle timer)
 
 	for(new i = 1; i <= MaxClients; i++)
 	{
-		if(!IsClientInGame(i) || !IsPlayerAlive(i))
+		if(!IsClientInGame(i) || !IsPlayerAlive(i) || GetClientTeam(i) != CS_TEAM_T)
 			continue;
 
 		rand = GetRandomInt(1, 100);
