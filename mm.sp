@@ -170,6 +170,11 @@ public void OnPluginStart()
 	SQL_FastQuery(g_Database, table, sizeof(table));
 
 	RegConsoleCmd("sm_mm", Command_MainMenu);
+	RegConsoleCmd("sm_store", Command_MainMenu);
+	RegConsoleCmd("sm_money", Command_MainMenu);
+	RegConsoleCmd("sm_shop", Command_MainMenu);
+
+
 	RegConsoleCmd("sm_test", Command_Test);
 
 	HookEvent("player_death", Event_PlayerDeath);

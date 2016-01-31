@@ -26,7 +26,7 @@ public Action FIVESEVEN_timerCallback(Handle timer)
 
 	for(new i = 1; i <= MaxClients; i++)
 	{
-		if(!IsClientInGame(i) || !IsPlayerAlive(i) || GetClientTeam(i) != CS_TEAM_T)
+		if(!IsClientInGame(i) || !IsPlayerAlive(i))
 			continue;
 
 		rand = GetRandomInt(1, 100);
