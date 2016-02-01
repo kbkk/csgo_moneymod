@@ -22,6 +22,9 @@
 #define TT_SURVIVE_MONEY 100
 #define VIP_MULTIPLIER 1.2
 
+//will give weapons after this time
+#define WEAPON_TIME 12.0
+
 #define MENU_PREFIX "[Sejtn's MoneyMod]"
 #define CHAT_PREFIX "\x06[Sejtn's MM]\x01"
 
@@ -179,6 +182,8 @@ public void OnPluginStart()
 
 	HookEvent("player_death", Event_PlayerDeath);
 	HookEvent("round_end", OnRoundEnd, EventHookMode_Pre);
+
+	SetRandomSeed(GetTime());
 }
 
 public void OnRoundEnd(Event hEvent, const char[] name, bool dontBroadcast)
@@ -373,7 +378,7 @@ int AddPlayerMoney(int client, int money, float vipMultiplier = 1.2)
 	if(ccount <= 3)
 		return 0;
 
-	if(ccount <= 11)
+	if(ccount <= 7)
 		money /= 2;
 
 	if(g_Players[client][Vip])

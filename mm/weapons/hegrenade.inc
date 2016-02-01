@@ -17,7 +17,7 @@ public void HEGRENADE_init() {
 public Action HEGRENADE_round_poststart(Event event, const char[] name, bool dontBroadcast)
 {
 	ClearTimer(HEGRENADE_timerHandle);
-	HEGRENADE_timerHandle = CreateTimer(5.0, HEGRENADE_timerCallback);
+	HEGRENADE_timerHandle = CreateTimer(WEAPON_TIME, HEGRENADE_timerCallback);
 }
 
 public Action HEGRENADE_timerCallback(Handle timer)

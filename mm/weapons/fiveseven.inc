@@ -17,7 +17,7 @@ public void FIVESEVEN_init() {
 public Action FIVESEVEN_round_poststart(Event event, const char[] name, bool dontBroadcast)
 {
 	ClearTimer(FIVESEVEN_timerHandle);
-	FIVESEVEN_timerHandle = CreateTimer(5.0, FIVESEVEN_timerCallback);
+	FIVESEVEN_timerHandle = CreateTimer(WEAPON_TIME, FIVESEVEN_timerCallback);
 }
 
 public Action FIVESEVEN_timerCallback(Handle timer)

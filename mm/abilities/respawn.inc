@@ -35,9 +35,7 @@ public Action RESPAWN_RespawnPlayer(Handle timer, any userid)
     }*/
     int rand = GetRandomInt(1, 100);
     int chance = GetClientAbiPower(client, RESPAWN);
-
-    PrintToServer("%i", chance);
-
+    
     if(chance >= rand)
     {
         char name[65];

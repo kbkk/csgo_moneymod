@@ -17,7 +17,7 @@ public void DEAGLE_init() {
 public Action DEAGLE_round_poststart(Event event, const char[] name, bool dontBroadcast)
 {
 	ClearTimer(DEAGLE_timerHandle);
-	DEAGLE_timerHandle = CreateTimer(5.0, DEAGLE_timerCallback);
+	DEAGLE_timerHandle = CreateTimer(WEAPON_TIME, DEAGLE_timerCallback);
 }
 
 public Action DEAGLE_timerCallback(Handle timer)

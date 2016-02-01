@@ -17,7 +17,7 @@ public void SECONDFLASH_init() {
 public Action SECONDFLASH_round_poststart(Event event, const char[] name, bool dontBroadcast)
 {
 	ClearTimer(SECONDFLASH_timerHandle);
-	SECONDFLASH_timerHandle = CreateTimer(5.0, SECONDFLASH_timerCallback);
+	SECONDFLASH_timerHandle = CreateTimer(WEAPON_TIME, SECONDFLASH_timerCallback);
 }
 
 public Action SECONDFLASH_timerCallback(Handle timer)

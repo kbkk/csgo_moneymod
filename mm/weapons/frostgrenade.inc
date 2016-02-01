@@ -17,7 +17,7 @@ public void FROSTGRENADE_init() {
 public Action FROSTGRENADE_round_poststart(Event event, const char[] name, bool dontBroadcast)
 {
 	ClearTimer(FROSTGRENADE_timerHandle);
-	FROSTGRENADE_timerHandle = CreateTimer(5.0, FROSTGRENADE_timerCallback);
+	FROSTGRENADE_timerHandle = CreateTimer(WEAPON_TIME, FROSTGRENADE_timerCallback);
 }
 
 public Action FROSTGRENADE_timerCallback(Handle timer)
