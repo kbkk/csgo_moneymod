@@ -6,5 +6,5 @@ The whole thing can work on an SQLite database. However beware, I experienced pe
 I recommend using MySQL or MariaDB.
 
 # Compiling
-You need to remove the BlockMaker dependency (native) or replace it with your own since I'm not going to publish it (for now at least).  
-Then run spcomp.exe
+smlib needed
+run spcomp.exe
