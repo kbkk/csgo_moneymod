@@ -177,13 +177,25 @@ public void OnPluginStart()
 	RegConsoleCmd("sm_money", Command_MainMenu);
 	RegConsoleCmd("sm_shop", Command_MainMenu);
 
-
 	RegConsoleCmd("sm_test", Command_Test);
 
 	HookEvent("player_death", Event_PlayerDeath);
 	HookEvent("round_end", OnRoundEnd, EventHookMode_Pre);
 
+	CreateTimer(0.1, Timer_RefreshScoreboardMoney, _, TIMER_REPEAT);
+
 	SetRandomSeed(GetTime());
+}
+
+public Action Timer_RefreshScoreboardMoney(Handle timer)
+{
+	for(int client = 1; client <= MaxClients; client++)
+	{
+		if(IsClientInGame(client))
+		{
+			SetEntProp(client, Prop_Send, "m_iAccount", g_Players[client][Money]);
+		}
+	}
 }
 
 public void OnRoundEnd(Event hEvent, const char[] name, bool dontBroadcast)
