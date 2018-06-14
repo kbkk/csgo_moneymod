@@ -107,11 +107,11 @@ new m_iClip1, m_iClip2, m_iAmmo, m_iPrimaryAmmoType;
 
 public Plugin myinfo =
 {
-	name = "Sejnt's MoneyMod",
-	author = "Sejtn aka Sejnt",
+	name = "kbck's MoneyMod",
+	author = "kbck aka sejtn",
 	description = "MoneyMod to use with EasyBlock :)",
 	version = "1.0",
-	url = "http://kbkk.pl"
+	url = "http://kbck.pl"
 };
 
 public void OnPluginStart()
