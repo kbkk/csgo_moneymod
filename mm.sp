@@ -257,7 +257,6 @@ public void OnClientPostAdminCheck(client)
 
 	SDKHook(client, SDKHook_OnTakeDamage, CRITICALHIT_OnTakeDamage);
 	SDKHook(client, SDKHook_OnTakeDamage, LIFESTEAL_OnTakeDamage);
-	SDKHook(client, SDKHook_WeaponDrop, WeaponDrop);
 
 	g_PlayerInitialized[client] = false;
 	LoadData(client);
@@ -275,14 +274,6 @@ public void OnClientDisconnect(client)
 
 	for(int i = 0; i < view_as<int>(e_Weapons); i++)
 		g_Weapons[client][i] = 0;
-}
-
-public Action WeaponDrop(client, weapon)
-{
-	if(weapon != -1)
-		AcceptEntityInput(weapon, "Kill");
-
-	return Plugin_Continue;
 }
 
 public void OnEntityCreated(ent, const char[] classname)
