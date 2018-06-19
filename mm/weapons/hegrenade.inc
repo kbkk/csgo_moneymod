@@ -6,7 +6,7 @@ public void HEGRENADE_init() {
 	Format(g_WeaponsInfo[HEGRENADE][columnname], 63, "hegrenade");
 	g_WeaponsInfo[HEGRENADE][maxLevel] = 5;
 	g_WeaponsInfo[HEGRENADE][initialCost] = 800;
-	g_WeaponsInfo[HEGRENADE][powerPerLevel] = 10;
+	g_WeaponsInfo[HEGRENADE][powerPerLevel] = 5;
 	//Format(g_WeaponsInfo[HEGRENADE][prefix], 4, "");
 	//Format(g_WeaponsInfo[HEGRENADE][firstUnit], 4, "");
 	Format(g_WeaponsInfo[HEGRENADE][secondUnit], 4, "%%");
