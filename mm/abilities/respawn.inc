@@ -1,6 +1,5 @@
 public void RESPAWN_init() {
-    //g_AbilitiesInfo[RESPAWN][name] = "Health Regeneration";
-    Format(g_AbilitiesInfo[RESPAWN][desc], 63, "Respawn");
+    Format(g_AbilitiesInfo[RESPAWN][desc], 63, "Respawn [CT Only]");
     Format(g_AbilitiesInfo[RESPAWN][columnname], 63, "respawn");
     g_AbilitiesInfo[RESPAWN][maxLevel] = 10;
     g_AbilitiesInfo[RESPAWN][initialCost] = 75;
@@ -23,6 +22,9 @@ public Action RESPAWN_RespawnPlayer(Handle timer, any userid)
     int client = GetClientOfUserId(userid);
 
     if(!IsClientInGame(client) || IsPlayerAlive(client))
+        return Plugin_Stop;
+
+    if(GetClientTeam(client) != CS_TEAM_CT)
         return Plugin_Stop;
 
     /*if(GameRules_GetRoundState() == RoundState_RoundRunning)
