@@ -1,8 +1,7 @@
 Handle FROSTGRENADE_timerHandle = INVALID_HANDLE;
 
 public void FROSTGRENADE_init() {
-	//g_WeaponsInfo[FROSTGRENADE][name] = "Health Regeneration";
-	Format(g_WeaponsInfo[FROSTGRENADE][desc], 63, "Frost Grenade");
+	Format(g_WeaponsInfo[FROSTGRENADE][desc], 63, "Frost Grenade [5x less for CT]");
 	Format(g_WeaponsInfo[FROSTGRENADE][columnname], 63, "frostgrenade");
 	g_WeaponsInfo[FROSTGRENADE][maxLevel] = 5;
 	g_WeaponsInfo[FROSTGRENADE][initialCost] = 600;
@@ -31,6 +30,11 @@ public Action FROSTGRENADE_timerCallback(Handle timer)
 
 		rand = GetRandomInt(1, 100);
 		chance = GetClientWepPower(i, FROSTGRENADE);
+
+		if(GetClientTeam(i) == CS_TEAM_CT)
+		{
+			chance /= 5;
+		}
 
 		if(chance >= rand)
 		{
