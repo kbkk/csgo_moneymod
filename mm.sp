@@ -139,7 +139,7 @@ public void OnPluginStart()
 	m_iPrimaryAmmoType = FindSendPropOffsEx("CBaseCombatWeapon", "m_iPrimaryAmmoType");
 
 	char error[512], table[2048];
-	g_Database = SQLite_UseDatabase("sejntmm/sejntmm", error, sizeof(error));
+	g_Database = SQL_Connect("kbkkmm", true, error, sizeof error);
 
 	if(error[0] != EOS)
 		PrintToServer("%s %s", CHAT_PREFIX, error);
