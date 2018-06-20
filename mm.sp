@@ -288,8 +288,10 @@ public T_loadPlayerCallback(Handle owner, Handle hndl, const char[] error, any u
 	if(client == 0)
 		return;
 
-	if(!SQL_FetchRow(hndl))
-		return; //error
+	if(error[0] != EOS || !SQL_FetchRow(hndl)) {
+		LogError("T_loadPlayerCallback error: %s", error);
+		return;
+	}
 
 	int field = 3; //field indices are starting from 0
 
@@ -333,7 +335,7 @@ public bool LoadData(client)
 	char auth[64], query[256];
 	GetClientAuthId(client, AuthId_SteamID64, auth, sizeof(auth));
 
-	Format(query, sizeof(query), "INSERT OR IGNORE INTO players(steam_id) VALUES ('%s')", auth);
+	Format(query, sizeof(query), "INSERT IGNORE INTO players(steam_id) VALUES ('%s')", auth);
 	SQL_TQuery(g_Database, T_initPlayerCallback, query, userid);
 
 	return true;
