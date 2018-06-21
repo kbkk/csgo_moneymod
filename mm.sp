@@ -158,7 +158,7 @@ public void OnPluginStart()
 		"longerinvincibility SMALLINT",
 		"longerstealth SMALLINT",
 		"silentfootsteps SMALLINT",
-
+		"instantfb SMALLINT",
 		"secondflashbang SMALLINT",
 		"frostgrenade SMALLINT",
 		"hegrenade SMALLINT",
@@ -343,7 +343,8 @@ public bool LoadData(client)
 
 public T_emptyCallback(Handle owner, Handle hndl, const char[] error, any userid)
 {
-	//PrintToServer(error);
+	if(error[0] != EOS)
+		LogError(error);
 }
 
 public bool SaveData(client)
